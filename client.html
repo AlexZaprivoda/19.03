@@ -13,6 +13,7 @@
   </head>
   <body>
     <button id="run">run</button>
+    <input type="text" id="search" />
     <div id="users"></div>
   </body>
   <script defer>
@@ -51,5 +52,16 @@
     });
     //рядом с кнопкой выводить время для просчета времени сколько браузер опрашивал данные
     //переписать с промисами
+    search.oninput = e => {
+      // e.target.value
+      const jq = $("#users > div");
+      for (let i = 0; i < jq.length; i++) {
+        const buff = $(jq[i]).html();
+        if (buff.includes(e.target.value)) {
+          continue;
+        }
+        $(jq[i]).css("display", "none");
+      }
+    };
   </script>
 </html>
