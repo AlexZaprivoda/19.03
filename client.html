@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <button id="run">run</button>
+    <div id="users"></div>
+  </body>
+  <script defer>
+    run.addEventListener("click", () => {
+      //   let xhr = new XMLHttpRequest();
+      //   xhr.open("get", "https://jsonplaceholder.typicode.com/users/");
+
+      //   xhr.onload = function() {
+      //     if (this.status == 200) {
+      //       let res = JSON.parse(this.responseText);
+      //       console.log(res);
+      //     } else console.log("error");
+      //   };
+
+      //   xhr.send();
+      run.innerHTML = "...";
+      run.setAttribute("disabled", "disabled");
+      let date1 = Date();
+      console.log(date1);
+
+      $.get("https://jsonplaceholder.typicode.com/users/", data => {
+        data.forEach(function({ name, email, phone, website }) {
+          $("#users").append(
+            $(document.createElement("div")).html(`
+            <h2>${name}</h2>
+            <p>${email} / ${phone}</p>
+            <div><a href ="${website}">site: ${website}</a></div>
+            <hr>
+           `)
+          );
+        });
+      });
+
+      run.innerHTML = "run";
+      run.removeAttribute("disabled", "disabled");
+    });
+    //рядом с кнопкой выводить время для просчета времени сколько браузер опрашивал данные
+    //переписать с промисами
+  </script>
+</html>
