@@ -31,10 +31,13 @@
       //   xhr.send();
       run.innerHTML = "...";
       run.setAttribute("disabled", "disabled");
-      let date1 = Date();
-      console.log(date1);
+      let timer = document.createElement("div");
+      let dateStart = new Date();
 
       $.get("https://jsonplaceholder.typicode.com/users/", data => {
+        let dateEnd = new Date();
+        timer.innerText = `Время опроса: ${dateEnd.getTime() -
+          dateStart.getTime()} мс`;
         data.forEach(function({ name, email, phone, website }) {
           $("#users").append(
             $(document.createElement("div")).html(`
@@ -45,26 +48,27 @@
            `)
           );
         });
+        run.innerHTML = "run";
+        run.removeAttribute("disabled", "disabled");
       });
 
-      run.innerHTML = "run";
-      run.removeAttribute("disabled", "disabled");
+      document.body.insertBefore(timer, search);
     });
-    //рядом с кнопкой выводить время для просчета времени сколько браузер опрашивал данные
     //переписать с промисами
     search.oninput = e => {
-      // e.target.value
       const jq = $("#users > div");
-      for (let i = 0; i < jq.length; i++) {
-        const buff = $(jq[i]).html();
-        if (buff.includes(e.target.value)) {
-          continue;
+      setInterval(() => {
+        for (let i = 0; i < jq.length; i++) {
+          const buff = $(jq[i]).html();
+          if (buff.includes(e.target.value)) {
+            if ($(jq[i]).css("display") == "none") {
+              $(jq[i]).css("display", "");
+            }
+            continue;
+          }
+          $(jq[i]).css("display", "none");
         }
-        $(jq[i]).css("display", "none");
-      }
+      }, 1500);
     };
-
-    //поиск на удалении 
-    //время отклика
   </script>
 </html>
