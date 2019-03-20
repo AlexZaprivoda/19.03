@@ -54,9 +54,12 @@
       document.body.insertBefore(timer, search);
     });
     //переписать с промисами
+
     search.oninput = e => {
       const jq = $("#users > div");
-      setInterval(() => {
+
+      setTimeout(() => {
+        // console.log("1");
         for (let i = 0; i < jq.length; i++) {
           let exp1 = /<h2>.{1,}<\/h2>/;
           const buff = $(jq[i])
