@@ -51,7 +51,6 @@
         run.innerHTML = "run";
         run.removeAttribute("disabled", "disabled");
       });
-
       document.body.insertBefore(timer, search);
     });
     //переписать с промисами
@@ -59,8 +58,11 @@
       const jq = $("#users > div");
       setInterval(() => {
         for (let i = 0; i < jq.length; i++) {
-          const buff = $(jq[i]).html();
-          if (buff.includes(e.target.value)) {
+          let exp1 = /<h2>.{1,}<\/h2>/;
+          const buff = $(jq[i])
+            .html()
+            .match(exp1);
+          if (buff[0].includes(e.target.value)) {
             if ($(jq[i]).css("display") == "none") {
               $(jq[i]).css("display", "");
             }
